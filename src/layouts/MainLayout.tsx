@@ -1,17 +1,12 @@
-import * as React from "react";
+import React from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
 import Container from "@mui/material/Container";
-import MenuIcon from "@mui/icons-material/Menu";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { AppBar } from "../components/Header";
-import { Drawer, SideBarMenu } from "../components/Sidebar";
-import { Breadcrumbs, Link } from "@mui/material";
+import { Header } from "../components/Header";
+import { SideBarMenu } from "../components/Sidebar";
+import Breadcrumb from "../components/Breadcrumb";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
@@ -26,52 +21,8 @@ export default function Dashboard({ children }: any) {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px",
-              background: "#f5f5f5"
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <SideBarMenu open={open}></SideBarMenu>
-        </Drawer>
+        <Header open={open} toggleDrawer={toggleDrawer}></Header>
+        <SideBarMenu toggleDrawer={toggleDrawer} open={open}></SideBarMenu>
         <Box
           component="main"
           sx={{
@@ -86,15 +37,7 @@ export default function Dashboard({ children }: any) {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 1, mb: 0 }}>
-            <Breadcrumbs>
-              <Link underline="hover" color="inherit" href="/">
-                HOME
-              </Link>
-              <Link underline="hover" color="inherit" href="/">
-                Core
-              </Link>
-              <Typography color="text.primary">Breadcrumbs</Typography>
-            </Breadcrumbs>
+            <Breadcrumb></Breadcrumb>
           </Container>
           <Container maxWidth="lg" sx={{ mt: 1, mb: 4 }}>
             {children}
